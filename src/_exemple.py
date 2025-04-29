@@ -13,4 +13,4 @@ table = pd.DataFrame.from_dict({
 answer = query.find_answer(question, table)
 chart = builder.create_chart(answer, kind)
 
-print(chart) # HTML
+print(chart)
