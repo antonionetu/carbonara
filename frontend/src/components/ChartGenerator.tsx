@@ -28,23 +28,30 @@ export default function ChartGenerator() {
       alert("Please fill all fields and upload files.");
       return;
     }
-
+  
     const formData = new FormData();
     files.forEach(file => formData.append("files", file));
     formData.append("question", question);
     formData.append("kind_of_chart", kindOfChart);
-
+  
     try {
       setLoading(true);
       const response = await axios.post("http://localhost:8000/generate-chart", formData, {
+        responseType: "blob",
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      const { question: q, answer, chart } = response.data;
-
+  
+      const blob = response.data;
+      const text = await blob.text();
+  
       setWindows(prev => [
         ...prev,
-        { id: Date.now(), question: q, answer, chart }
+        {
+          id: Date.now(),
+          question,
+          answer: "Chart generated successfully.",
+          chart: text,
+        }
       ]);
     } catch (error) {
       console.error(error);

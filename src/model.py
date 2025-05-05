@@ -7,7 +7,7 @@ load_dotenv()
 
 class LLM:
     @staticmethod
-    def query(text):
+    async def query(text):
         model = Groq(
             model="llama3-70b-8192", 
             api_key=os.getenv('GROQ_API_SECRET')
@@ -16,7 +16,7 @@ class LLM:
     
 
     @staticmethod
-    def builder(text):
+    async def builder(text):
         model = Groq(
             model="llama3-70b-8192", 
             api_key=os.getenv('GROQ_API_SECRET')
